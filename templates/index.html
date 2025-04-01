@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="intro">
+  <h1 class="title name">funding.json</h1>
+  <h2>
+    An open JSON manifest for describing FOSS funding requirements
+  </h2>
+</div>
+
+<div>
+  {% set page = get_page(path="homepage.md") %}
+  {{ page.content | safe }}
+</div>
+
+{% endblock content %}
