@@ -33,15 +33,19 @@ For repository hosting platforms like GitHub, the manifest can be checked into t
 
 ### wellKnown
 
-If the manifest references URLs, such as a project's webpage, that are not on the same domain as the `funding.json` manifest itself, then the `wellKnown` URL must point to a `/.well-known/funding-manifest-urls` file.
+If a `funding.json` manifest lists URLs (such as webpage or repository) that are hosted on a different hostname than the manifest itself, those URLs are considered **unverified**. For example, if `example.com/funding.json` includes a project with the URL `project.net/repository`, that project URL is unverified because ther is no way to know whether `example.com` is authorized to solicit funding on behalf of `project.net`.
 
-This file must contain the URL of the `funding.json` manifest URLs that reference it. The file can contain multiple URLs, one per line. This establishes provenance and verifies that that the publisher of the manifest is authorised to solicit funding on behalf of the URLs (entity, projects) described in the manifest. This follows the [.well-known](https://en.wikipedia.org/wiki/Well-known_URI) convention. An example scenario is described below.
+To verify URLs that do not share the same hostname, a `wellKnown` URL can be provided that points to a `/.well-known/funding-manifest-urls` file.
+
+This file must contain the URL of the `funding.json` manifest URLs that reference it. For instance, `project.net/.well-known/funding-manifest-urls` can contain a reference to `example.com/funding.json` proving that they are associated.
+
+The file can contain multiple URLs, one per line. This establishes provenance and verifies that that the publisher of the manifest is authorised to solicit funding on behalf of the URLs (entity, projects) described in the manifest. This follows the [.well-known](https://en.wikipedia.org/wiki/Well-known_URI) convention. An example scenario is described below.
 
 |                                                 |                                                              |
 | ------------------------------------------------|--------------------------------------------------------------|
 | Manifest location                               | https://example.com/funding.json                             |
-| Project URL referenced in the manifest          | https://my-cool-project.net                                  |
-| Expected `wellKnown` along with the project URL | https://my-cool-project.net/.well-known/funding-manifest-urls |
+| Project URL referenced in the manifest          | https://project.net                                  |
+| Expected `wellKnown` along with the project URL | https://project.net/.well-known/funding-manifest-urls |
 | Contents of the `wellKnown` file                | `https://example.com/funding.json`                           |
 
 ### tags
